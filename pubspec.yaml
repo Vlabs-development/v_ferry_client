@@ -1,17 +1,14 @@
 name: v_gql
-description: A new Flutter package project.
+description: A new dart package project.
 version: 0.0.1
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
-  flutter: ">=1.17.0"
 
 dependencies:
   async: ^2.11.0
   collection: ^1.17.2
   ferry: ^0.14.2+1
-  flutter:
-    sdk: flutter
   fpdart: ^1.1.0
   gql: ^1.0.0
   gql_error_link: ^1.0.0
@@ -21,8 +18,3 @@ dependencies:
   gql_websocket_link: ^1.1.0
   http: ^1.1.0
   stack_trace: ^1.11.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0

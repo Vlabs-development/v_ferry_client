@@ -13,7 +13,6 @@ import 'package:v_gql/http_link/retry_link.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:v_gql/operation_defect.dart';
@@ -133,7 +132,7 @@ class FerryClient<ExtensionDefectType> extends Client {
     final isSubscription = req.execRequest.operationType == OperationType.subscription;
     final flatVarsString = req.vars.toString().replaceAll('\n', ' ').replaceAll(RegExp(' +'), ' ');
     if (_verboseLog && isSubscription) {
-      timedDebugPrint('🧨 ${req.operation.operationName} -> $flatVarsString');
+      timedLog('🧨 ${req.operation.operationName} -> $flatVarsString');
     }
     final stackTrace = Chain.current();
 
@@ -142,20 +141,20 @@ class FerryClient<ExtensionDefectType> extends Client {
         if (_verboseLog) {
           if (response.dataSource == DataSource.Link) {
             if (isSubscription) {
-              timedDebugPrint('🔥 ${req.operation.operationName} -> $flatVarsString');
+              timedLog('🔥 ${req.operation.operationName} -> $flatVarsString');
             } else {
               if (response.hasErrors) {
                 if (response.data == null) {
-                  timedDebugPrint('🔁🔴 ${req.operation.operationName} -> $flatVarsString');
+                  timedLog('🔁🔴 ${req.operation.operationName} -> $flatVarsString');
                 } else {
-                  timedDebugPrint('🔁🟠 ${req.operation.operationName} -> $flatVarsString');
+                  timedLog('🔁🟠 ${req.operation.operationName} -> $flatVarsString');
                 }
               } else {
-                timedDebugPrint('🔁🟢 ${req.operation.operationName} -> $flatVarsString');
+                timedLog('🔁🟢 ${req.operation.operationName} -> $flatVarsString');
               }
             }
           } else {
-            timedDebugPrint('🔁🟡 ${req.operation.operationName} -> $flatVarsString');
+            timedLog('🔁🟡 ${req.operation.operationName} -> $flatVarsString');
           }
         }
         return _handleResponse(
@@ -191,15 +190,15 @@ class FerryClient<ExtensionDefectType> extends Client {
       if (response.dataSource == DataSource.Link) {
         if (response.hasErrors) {
           if (response.data == null) {
-            debugPrint('🔰🔴 ${req.operation.operationName}');
+            timedLog('🔰🔴 ${req.operation.operationName}');
           } else {
-            debugPrint('🔰🟠 ${req.operation.operationName}');
+            timedLog('🔰🟠 ${req.operation.operationName}');
           }
         } else {
-          debugPrint('🔰🟢 ${req.operation.operationName}');
+          timedLog('🔰🟢 ${req.operation.operationName}');
         }
       } else {
-        debugPrint('🔰🟡 ${req.operation.operationName}');
+        timedLog('🔰🟡 ${req.operation.operationName}');
       }
     }
 
@@ -332,7 +331,7 @@ class LinkResolverImplementation implements LinkResolver {
 
             return false;
           },
-          log: timedDebugPrint,
+          log: timedLog,
         ) {
     webSocketLink?.connectionStateStream.listen((event) {
       onWebSocketConnectionStateChanged?.call(event);
@@ -381,6 +380,6 @@ String _formattedCurrentTime() {
   return timestamp;
 }
 
-void timedDebugPrint(String value) => debugPrint('${_formattedCurrentTime()} $value');
+void timedLog(String value) => print('${_formattedCurrentTime()} $value');
 
 String prettyJson(Map<String, dynamic> json) => const JsonEncoder.withIndent('  ').convert(json);
