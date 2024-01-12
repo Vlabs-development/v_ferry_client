@@ -8,13 +8,13 @@ environment:
 dependencies:
   async: ^2.11.0
   collection: ^1.17.2
-  ferry: ^0.14.2+1
+  ferry: ^0.15.0+1
   fpdart: ^1.1.0
   gql: ^1.0.0
   gql_error_link: ^1.0.0
   gql_exec: ^1.0.0
   gql_http_link: ^1.0.1
   gql_transform_link: ^1.0.0
-  gql_websocket_link: ^1.1.0
+  gql_websocket_link: ^2.0.0
   http: ^1.1.0
   stack_trace: ^1.11.0
